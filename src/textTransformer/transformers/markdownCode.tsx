@@ -1,5 +1,5 @@
 import { TransformerNode } from "../TransformerNode";
-import type { Transformer } from "../types";
+import type { TextTransformer } from "../types";
 
 type MarkdownCodeNodeState = { language: string | null; code: string };
 
@@ -25,7 +25,7 @@ export class MarkdownCodeNode extends TransformerNode<MarkdownCodeNodeState> {
   }
 }
 
-export const markdownCodeTransformer: Transformer<MarkdownCodeNode> = {
+export const markdownCodeTransformer: TextTransformer<MarkdownCodeNode> = {
   regexp: /```\s*(.*)\n([\s\S]+)```\n*/g,
   node: MarkdownCodeNode,
   defineState: (match) => {

@@ -1,3 +1,6 @@
-import type { FunctionComponent, PropsWithChildren } from "react";
+import type { FunctionComponent, ReactNode } from "react";
 
-export type LayoutComponent = FunctionComponent<PropsWithChildren>;
+export type LayoutComponent = FunctionComponent<{
+  children: ReactNode;
+  title?: string;
+}>;

@@ -1,5 +1,5 @@
 import { TransformerNode } from "../TransformerNode";
-import type { Transformer } from "../types";
+import type { TextTransformer } from "../types";
 
 type MarkdownParagraphNodeState = { content: string };
 
@@ -22,7 +22,7 @@ export class MarkdownParagraphNode extends TransformerNode<MarkdownParagraphNode
   }
 }
 
-export const markdownParagraphTransformer: Transformer<MarkdownParagraphNode> =
+export const markdownParagraphTransformer: TextTransformer<MarkdownParagraphNode> =
   {
     regexp: /[\s\S]+?\n{2,}|[\s\S]+/g,
     node: MarkdownParagraphNode,

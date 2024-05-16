@@ -1,5 +1,5 @@
 import { TransformerNode } from "./TransformerNode";
-import type { Transformer } from "./types";
+import type { TextTransformer } from "./types";
 import {
   markdownParagraphTransformer,
   markdownTableTransformer,
@@ -8,7 +8,7 @@ import {
 
 function parsePlainTextToNodes<T extends TransformerNode>(
   text: string,
-  transformers: Transformer<T>[]
+  transformers: TextTransformer<T>[]
 ) {
   const nodes: T[] = [];
 
@@ -49,4 +49,4 @@ export {
   markdownTableTransformer,
 };
 
-export type { Transformer };
+export type { TextTransformer as Transformer };

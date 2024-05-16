@@ -1,6 +1,8 @@
-import { CONTENT_DIR, PUBLIC_DIR } from "../config";
-import { renderContent } from "./contentRender";
+import { SITE_DIR } from "../config";
+import { processDir } from "./builder/processDir.ts";
 
-export function build() {
-  renderContent({ rootDir: CONTENT_DIR, outDir: PUBLIC_DIR });
-}
+export const build = async () => {
+  await processDir(SITE_DIR);
+};
+
+await build();

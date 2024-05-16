@@ -1,5 +1,5 @@
 import { TransformerNode } from "../TransformerNode";
-import type { Transformer } from "../types";
+import type { TextTransformer } from "../types";
 
 type ColDef = {
   content: string;
@@ -27,7 +27,7 @@ export class MarkdownTableNode extends TransformerNode<MarkdownTableNodeState> {
   }
 }
 
-export const markdownTableTransformer: Transformer<MarkdownTableNode> = {
+export const markdownTableTransformer: TextTransformer<MarkdownTableNode> = {
   regexp: /(\|[^\n]+\|.+\r?\n)((?:\|:?-+:?)+\|.+\r?\n*)((?:\|[^\n]+\|.+\r?\n?)*)?\r?\n*/g, //prettier-ignore
   node: MarkdownTableNode,
   defineState: (match) => {

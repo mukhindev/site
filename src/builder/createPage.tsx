@@ -2,7 +2,10 @@ import { renderToString } from "react-dom/server";
 import { Fragment, type ReactElement } from "react";
 import type { LayoutComponent } from "../templates/types";
 
-export function createHTML(layout: LayoutComponent, content: ReactElement[]) {
+export const createPage = (
+  layout: LayoutComponent,
+  content: ReactElement[]
+) => {
   const Layout = layout;
 
   return renderToString(
@@ -12,4 +15,4 @@ export function createHTML(layout: LayoutComponent, content: ReactElement[]) {
       })}
     </Layout>
   );
-}
+};

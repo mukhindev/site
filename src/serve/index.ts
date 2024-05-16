@@ -1,7 +1,7 @@
 import { stat } from "node:fs/promises";
 import { join } from "node:path";
 import { watch } from "node:fs/promises";
-import { CONTENT_DIR, PORT, PUBLIC_DIR } from "../../config";
+import { SITE_DIR, PORT, PUBLIC_DIR } from "../../config";
 import { build } from "../build";
 
 Bun.serve({
@@ -33,9 +33,9 @@ function log(method: Request["method"], pathname: string) {
   console.log(`${method} ${pathname}`);
 }
 
-const watcher = watch(CONTENT_DIR);
+const watcher = watch(SITE_DIR);
 
 for await (const event of watcher) {
-  console.log(`Changed: ${CONTENT_DIR}/${event.filename}`);
-  build();
+  console.log(`Changed: ${SITE_DIR}/${event.filename}`);
+  await build();
 }

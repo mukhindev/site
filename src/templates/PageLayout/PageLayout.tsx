@@ -1,11 +1,17 @@
-import { type PropsWithChildren } from "react";
+import type { LayoutComponent } from "../types";
+import { getTitle } from "../../utils";
 
-export default function Page(props: PropsWithChildren) {
-  const { children } = props;
+const Page: LayoutComponent = (props) => {
+  const { children, title } = props;
 
   return (
     <html lang="ru">
+      <head>
+        <title>{getTitle(title)}</title>
+      </head>
       <body>{children}</body>
     </html>
   );
-}
+};
+
+export default Page;
