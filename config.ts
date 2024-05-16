@@ -7,3 +7,4 @@ export const PUBLIC_DIR = "./public";
 
 export const HTML_EXT = ".html";
 export const MD_EXT = ".md";
+export const CSS_EXT = ".css";
