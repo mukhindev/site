@@ -12,8 +12,7 @@ export const processDir = async (path: string): Promise<void> => {
 
     if (fileStat.isDirectory()) {
       await processDir(filePath);
-
-      return;
+      continue;
     }
 
     await processFile(join(path, fileName));

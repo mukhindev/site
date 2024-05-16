@@ -33,9 +33,12 @@ function log(method: Request["method"], pathname: string) {
   console.log(`${method} ${pathname}`);
 }
 
-const watcher = watch(SITE_DIR);
+const watcher = watch(SITE_DIR, { recursive: true });
 
 for await (const event of watcher) {
-  console.log(`Changed: ${SITE_DIR}/${event.filename}`);
+  if (event.eventType === "change") {
+    console.log(`Changed: ${SITE_DIR}/${event.filename}`);
+  }
+
   await build();
 }
