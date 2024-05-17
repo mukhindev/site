@@ -1,9 +1,10 @@
-import { TransformerNode } from "./TransformerNode";
-import type { TextTransformer } from "./types";
+import { TextTransformerNode } from "./TextTransformerNode.ts";
+import type { TextTransformer, TextTransformerNodeTheme } from "./types";
 
-export function parsePlainTextToNodes<T extends TransformerNode>(
+export function parsePlainTextToNodes<T extends TextTransformerNode>(
   text: string,
-  transformers: TextTransformer<T>[]
+  transformers: TextTransformer<T>[],
+  theme?: TextTransformerNodeTheme
 ) {
   const nodes: T[] = [];
 
@@ -24,6 +25,10 @@ export function parsePlainTextToNodes<T extends TransformerNode>(
         node.setState(state);
         nodes.push(node);
 
+        if (theme) {
+          node.setTheme(theme);
+        }
+
         parsePlainTextToNode(text.replace(match[0], ""));
 
         break;
@@ -36,6 +41,6 @@ export function parsePlainTextToNodes<T extends TransformerNode>(
   return nodes;
 }
 
-export { TransformerNode };
-export type { TextTransformer as Transformer };
+export { TextTransformerNode };
 export * from "./transformers";
+export * from "./types";

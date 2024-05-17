@@ -1,17 +1,19 @@
 import PageLayout from "../templates/PageLayout";
 import {
-  TransformerNode,
+  TextTransformerNode,
   markdownCodeTransformer,
   markdownParagraphTransformer,
   markdownTableTransformer,
   markdownLinkTransformer,
   markdownHeadingTransformer,
   parsePlainTextToNodes,
-  type Transformer,
+  TextTransformerNodeType,
+  type TextTransformer,
+  type TextTransformerNodeTheme,
 } from "../textTransformer";
-import { createPage } from "./createPage.tsx";
+import { createPage } from "./createPage";
 
-const transformers: Transformer<TransformerNode>[] = [
+const transformers: TextTransformer<TextTransformerNode>[] = [
   markdownTableTransformer,
   markdownCodeTransformer,
   markdownLinkTransformer,
@@ -19,8 +21,12 @@ const transformers: Transformer<TransformerNode>[] = [
   markdownParagraphTransformer,
 ];
 
+const theme: TextTransformerNodeTheme = {
+  [TextTransformerNodeType.MarkdownHeading]: "heading",
+};
+
 export const renderMarkdown = (markdown: string): string => {
-  const nodes = parsePlainTextToNodes(markdown, transformers);
+  const nodes = parsePlainTextToNodes(markdown, transformers, theme);
   const elements = nodes.map((node) => node.render());
 
   return createPage(PageLayout, elements);

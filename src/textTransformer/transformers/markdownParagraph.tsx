@@ -1,14 +1,10 @@
-import { TransformerNode } from "../TransformerNode";
-import type { TextTransformer } from "../types";
+import { TextTransformerNode } from "../TextTransformerNode.ts";
+import { type TextTransformer, TextTransformerNodeType } from "../types";
 
 type MarkdownParagraphNodeState = { content: string };
 
-export class MarkdownParagraphNode extends TransformerNode<MarkdownParagraphNodeState> {
-  type = "markdown-paragraph";
-
-  constructor() {
-    super();
-  }
+export class MarkdownParagraphNode extends TextTransformerNode<MarkdownParagraphNodeState> {
+  type = TextTransformerNodeType.MarkdownParagraph;
 
   render() {
     // В Markdown 2+ пробела в конце это перенос на следующую строку

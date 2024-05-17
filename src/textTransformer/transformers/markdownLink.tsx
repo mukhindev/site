@@ -1,14 +1,10 @@
-import { TransformerNode } from "../TransformerNode";
-import type { TextTransformer } from "../types";
+import { TextTransformerNode } from "../TextTransformerNode.ts";
+import { type TextTransformer, TextTransformerNodeType } from "../types";
 
 type MarkdownLinkNodeState = { content: string; href: string };
 
-export class MarkdownLinkNode extends TransformerNode<MarkdownLinkNodeState> {
-  type = "markdown-link";
-
-  constructor() {
-    super();
-  }
+export class MarkdownLinkNode extends TextTransformerNode<MarkdownLinkNodeState> {
+  type = TextTransformerNodeType.MarkdownLink;
 
   render() {
     const { content, href } = this.state;

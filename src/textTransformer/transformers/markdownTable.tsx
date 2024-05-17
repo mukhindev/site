@@ -1,5 +1,5 @@
-import { TransformerNode } from "../TransformerNode";
-import type { TextTransformer } from "../types";
+import { TextTransformerNode } from "../TextTransformerNode.ts";
+import { type TextTransformer, TextTransformerNodeType } from "../types";
 
 type ColDef = {
   content: string;
@@ -13,12 +13,8 @@ type MarkdownTableNodeState = {
   rowData: CellData[];
 };
 
-export class MarkdownTableNode extends TransformerNode<MarkdownTableNodeState> {
-  type = "markdown-table";
-
-  constructor() {
-    super();
-  }
+export class MarkdownTableNode extends TextTransformerNode<MarkdownTableNodeState> {
+  type = TextTransformerNodeType.MarkdownTable;
 
   render() {
     const { colDefs, rowData } = this.state;

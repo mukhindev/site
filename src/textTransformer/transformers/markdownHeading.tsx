@@ -1,15 +1,11 @@
-import { TransformerNode } from "../TransformerNode";
-import type { TextTransformer } from "../types";
+import { TextTransformerNode } from "../TextTransformerNode.ts";
+import { type TextTransformer, TextTransformerNodeType } from "../types";
 import type { ReactElement, ReactNode } from "react";
 
 type MarkdownHeadingNodeState = { level: number; content: string };
 
-export class MarkdownHeadingNode extends TransformerNode<MarkdownHeadingNodeState> {
-  type = "markdown-heading";
-
-  constructor() {
-    super();
-  }
+export class MarkdownHeadingNode extends TextTransformerNode<MarkdownHeadingNodeState> {
+  type = TextTransformerNodeType.MarkdownHeading;
 
   render() {
     const { level, content } = this.state;
@@ -19,7 +15,11 @@ export class MarkdownHeadingNode extends TransformerNode<MarkdownHeadingNodeStat
       children: ReactNode;
     }>["type"];
 
-    return <H className={this.className}>{content}</H>;
+    return (
+      <H className={`${this.className} ${this.className}_level_${level}`}>
+        {content}
+      </H>
+    );
   }
 }
 

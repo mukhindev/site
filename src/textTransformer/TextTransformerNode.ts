@@ -1,22 +1,20 @@
 import type { ReactElement } from "react";
+import type {
+  TextTransformerNodeTheme,
+  TextTransformerNodeType,
+} from "./types.ts";
 
-type Theme = Record<string, string>;
-
-export abstract class TransformerNode<T = Record<string, unknown>> {
-  type: string;
-  theme: Theme = {};
+export abstract class TextTransformerNode<T = Record<string, unknown>> {
+  type = "" as TextTransformerNodeType;
+  theme = {} as TextTransformerNodeTheme;
   state = {} as T;
-
-  constructor() {
-    this.type = "";
-  }
 
   setState(state: T) {
     this.state = state;
     return this;
   }
 
-  setTheme(theme: Theme) {
+  setTheme(theme: TextTransformerNodeTheme) {
     this.theme = theme;
     return this;
   }
