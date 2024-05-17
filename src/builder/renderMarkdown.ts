@@ -5,6 +5,7 @@ import {
   markdownParagraphTransformer,
   markdownTableTransformer,
   markdownLinkTransformer,
+  markdownHeadingTransformer,
   parsePlainTextToNodes,
   type Transformer,
 } from "../textTransformer";
@@ -14,6 +15,7 @@ const transformers: Transformer<TransformerNode>[] = [
   markdownTableTransformer,
   markdownCodeTransformer,
   markdownLinkTransformer,
+  markdownHeadingTransformer,
   markdownParagraphTransformer,
 ];
 
