@@ -1,5 +1,6 @@
 import { TransformerNode } from "../TransformerNode";
 import type { TextTransformer } from "../types";
+import type { ReactElement, ReactNode } from "react";
 
 type MarkdownHeadingNodeState = { level: number; content: string };
 
@@ -13,9 +14,12 @@ export class MarkdownHeadingNode extends TransformerNode<MarkdownHeadingNodeStat
   render() {
     const { level, content } = this.state;
 
-    const H = `h${level}`;
+    const H = `h${level}` as ReactElement<{
+      className: string;
+      children: ReactNode;
+    }>["type"];
 
-    return <h1 className={this.className}>{content}</h1>;
+    return <H className={this.className}>{content}</H>;
   }
 }
 
