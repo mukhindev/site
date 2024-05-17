@@ -22,7 +22,7 @@ export class MarkdownLinkNode extends TransformerNode<MarkdownLinkNodeState> {
 }
 
 export const markdownLinkTransformer: TextTransformer<MarkdownLinkNode> = {
-  regexp: /\[(.+)]\((.+)\)/g,
+  regexp: /\[(.+)]\((.+)\)(\n{2,})?/g,
   node: MarkdownLinkNode,
   defineState: (match) => {
     const [, content, href] = match;
