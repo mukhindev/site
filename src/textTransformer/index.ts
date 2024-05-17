@@ -1,12 +1,7 @@
 import { TransformerNode } from "./TransformerNode";
 import type { TextTransformer } from "./types";
-import {
-  markdownParagraphTransformer,
-  markdownTableTransformer,
-  markdownCodeTransformer,
-} from "./transformers";
 
-function parsePlainTextToNodes<T extends TransformerNode>(
+export function parsePlainTextToNodes<T extends TransformerNode>(
   text: string,
   transformers: TextTransformer<T>[]
 ) {
@@ -41,12 +36,6 @@ function parsePlainTextToNodes<T extends TransformerNode>(
   return nodes;
 }
 
-export {
-  parsePlainTextToNodes,
-  TransformerNode,
-  markdownParagraphTransformer,
-  markdownCodeTransformer,
-  markdownTableTransformer,
-};
-
+export { TransformerNode };
 export type { TextTransformer as Transformer };
+export * from "./transformers";

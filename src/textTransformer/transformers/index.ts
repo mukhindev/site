@@ -1,9 +1,4 @@
-import { markdownTableTransformer } from "./markdownTable";
-import { markdownCodeTransformer } from "./markdownCode";
-import { markdownParagraphTransformer } from "./markdownParagraph";
-
-export {
-  markdownTableTransformer,
-  markdownCodeTransformer,
-  markdownParagraphTransformer,
-};
+export * from "./markdownCode";
+export * from "./markdownLink";
+export * from "./markdownParagraph";
+export * from "./markdownTable";

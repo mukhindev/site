@@ -11,7 +11,8 @@ export class MarkdownParagraphNode extends TransformerNode<MarkdownParagraphNode
   }
 
   render() {
-    const content = this.state.content.replace(/\s\s\n/g, "<br/>").trim();
+    // В Markdown 2+ пробела в конце это перенос на следующую строку
+    const content = this.state.content.replace(/\s\s\n/g, "<br/>");
 
     return (
       <div
@@ -27,8 +28,10 @@ export const markdownParagraphTransformer: TextTransformer<MarkdownParagraphNode
     regexp: /[\s\S]+?\n{2,}|[\s\S]+/g,
     node: MarkdownParagraphNode,
     defineState: (match) => {
+      const [content] = match;
+
       return {
-        content: match[0],
+        content: content.trim(),
       };
     },
   };

@@ -4,6 +4,7 @@ import {
   markdownCodeTransformer,
   markdownParagraphTransformer,
   markdownTableTransformer,
+  markdownLinkTransformer,
   parsePlainTextToNodes,
   type Transformer,
 } from "../textTransformer";
@@ -12,6 +13,7 @@ import { createPage } from "./createPage.tsx";
 const transformers: Transformer<TransformerNode>[] = [
   markdownTableTransformer,
   markdownCodeTransformer,
+  markdownLinkTransformer,
   markdownParagraphTransformer,
 ];
 
