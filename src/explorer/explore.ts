@@ -3,7 +3,12 @@ import { join, relative } from "node:path";
 import { PUBLIC_DIR, SITE_DIR } from "../../config.ts";
 import type { ExplorerFile } from "./types.ts";
 
-/** Рекурсивный обход директорий и запуск обработчика файлов */
+const getSource = async (path: string) => {
+  const file = Bun.file(path);
+  return await file.text();
+};
+
+/** Рекурсивный обход директорий с запуском обработчика */
 export const explore = async (
   path: string,
   handle: (file: ExplorerFile) => Promise<void>
@@ -22,15 +27,12 @@ export const explore = async (
     const relativeDir = relative(SITE_DIR, path);
     const targetPath = join(PUBLIC_DIR, relativeDir, fileName);
 
-    const file = Bun.file(filePath);
-    const text = await file.text();
-
     await handle({
       sourcePath: filePath,
       fileName,
       relativeDir,
       targetPath,
-      source: text,
+      getSource: () => getSource(filePath),
     });
   }
 };

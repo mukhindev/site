@@ -3,5 +3,5 @@ export type ExplorerFile = {
   targetPath: string;
   relativeDir: string;
   fileName: string;
-  source: string;
+  getSource: () => Promise<string>;
 };
