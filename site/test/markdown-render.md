@@ -1,3 +1,10 @@
+---
+title: Не главнная страница
+tags:
+  - tag-1
+  - tag-3
+---
+
 # Hello World!
 
 This is a paragraph.

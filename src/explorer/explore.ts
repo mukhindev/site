@@ -25,12 +25,14 @@ export const explore = async (
     }
 
     const relativeDir = relative(SITE_DIR, path);
+    const relativePath = join(relativeDir, fileName);
     const targetPath = join(PUBLIC_DIR, relativeDir, fileName);
 
     await handle({
       sourcePath: filePath,
       fileName,
       relativeDir,
+      relativePath,
       targetPath,
       getSource: () => getSource(filePath),
     });

@@ -1,11 +1,30 @@
-import type { Metadata } from "./types";
+import type { Metadata, MetadataStore } from "./types";
 
-const pagesMetadata = new Map<string, Metadata>();
-
-export const metadataStore = {
-  pages: pagesMetadata,
+export const metadataStore: MetadataStore = {
+  pages: new Map(),
+  tagPages: new Map(),
+  tagCounters: new Map(),
 };
 
 export const registerPageMetadata = (path: string, metadata: Metadata) => {
-  pagesMetadata.set(path, metadata);
+  metadataStore.pages.set(path, metadata);
+
+  if (metadata.tags) {
+    metadata.tags.forEach((tag) => {
+      const tagPages = metadataStore.tagPages.get(tag) ?? [];
+
+      if (!tagPages.length) {
+        metadataStore.tagPages.set(tag, tagPages);
+      }
+
+      tagPages.push(metadata);
+    });
+  }
+
+  if (metadata.tags) {
+    metadata.tags.forEach((tag) => {
+      const tagCounter = metadataStore.tagCounters.get(tag) ?? 0;
+      metadataStore.tagCounters.set(tag, tagCounter + 1);
+    });
+  }
 };
