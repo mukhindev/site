@@ -1,3 +1,3 @@
 export * from "./types";
-export * from "./registerPageMetadata";
-export * from "./extractMetadata";
+export * from "./metadataStore";
+export * from "./extractPageMetadata";

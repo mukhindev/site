@@ -1,13 +1,15 @@
 import { CSS_EXT, HTML_EXT, MD_EXT, SITE_DIR } from "../config";
 import {
-  extractMetadata,
+  extractPageMetadata,
   metadataStore,
-  registerPageMetadata,
+  type SourceMetadata,
 } from "./metadata";
 import { explore } from "./explorer";
-import { renderMarkdown } from "./builder/renderMarkdown.ts";
+import { renderMarkdown } from "./builder/renderMarkdown";
 
 export const build = async () => {
+  metadataStore.resetMetadata();
+
   // Обход до рендера
   await explore(
     SITE_DIR,
@@ -15,11 +17,18 @@ export const build = async () => {
       // Регистрируем метаданные из Markdown файлов
       if (sourcePath.endsWith(MD_EXT)) {
         const source = await getSource();
-        const { metadata } = extractMetadata(source);
-        metadata.link = "/" + relativePath.replace(MD_EXT, HTML_EXT);
-        metadata.getSource = getSource;
-        metadata.targetPath = targetPath.replace(MD_EXT, HTML_EXT);
-        registerPageMetadata(sourcePath, metadata);
+        const { pageMetadata } = extractPageMetadata(source);
+        const sourceMetadata: SourceMetadata = {
+          link: "/" + relativePath.replace(MD_EXT, HTML_EXT),
+          targetPath: targetPath.replace(MD_EXT, HTML_EXT),
+          sourcePath,
+          getSource,
+        };
+
+        metadataStore.registerMetadata(sourcePath, {
+          ...pageMetadata,
+          ...sourceMetadata,
+        });
       }
 
       // Копируем CSS
@@ -27,31 +36,18 @@ export const build = async () => {
         const source = await getSource();
         await Bun.write(targetPath, source);
       }
-    }
+    },
   );
 
-  console.log(metadataStore.pages);
-
-  for await (const [page, metadata] of metadataStore.pages) {
+  for await (const metadata of metadataStore.pages) {
     // Рендер Markdown
-    if (page.endsWith(MD_EXT)) {
+    if (metadata.sourcePath.endsWith(MD_EXT)) {
       const source = await metadata.getSource();
-      const { content } = extractMetadata(source);
+      const { content } = extractPageMetadata(source);
       const html = renderMarkdown(content);
       await Bun.write(metadata.targetPath, html);
     }
   }
-
-  // Обход для рендера
-  await explore(SITE_DIR, async ({ sourcePath, targetPath, getSource }) => {
-    // Рендер Markdown
-    if (sourcePath.endsWith(MD_EXT)) {
-      const source = await getSource();
-      const { content } = extractMetadata(source);
-      const html = renderMarkdown(content);
-      await Bun.write(targetPath.replace(MD_EXT, HTML_EXT), html);
-    }
-  });
 };
 
 await build();

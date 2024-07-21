@@ -5,8 +5,6 @@ tags:
   - tag-2
 ---
 
-# Hello World!
+# Главная страница
 
-## Рендер тесты
-
-[См. markdown-render.md](/test/markdown-render.html)
+[Перейти к рендер тесту markdown-render.md](/test/markdown-render.html)
