@@ -1,0 +1,20 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"svg"> {
+  use: string;
+  width: number | string;
+  height: number | string;
+}
+
+const { use, width, height, class: className, ...attrs } = Astro.props;
+---
+
+<svg
+  class:list={["svg-use", className]}
+  width={width}
+  height={height}
+  {...attrs}
+>
+  <use href={`#${use}`}></use>
+</svg>

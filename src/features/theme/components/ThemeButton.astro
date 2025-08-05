@@ -1,0 +1,33 @@
+---
+import Button from "../../../shared/ui/Button.astro";
+---
+
+<Button class="theme-button">
+  <span class="theme-button__icon theme-button__icon_light">☀️</span>
+  <span class="theme-button__icon theme-button__icon_dark">🌙</span>
+</Button>
+
+<script>
+  import { toggleTheme } from "../useCases/toggleTheme";
+
+  const themeButton = document.querySelector(".theme-button")!;
+  themeButton.addEventListener("click", toggleTheme);
+</script>
+
+<style>
+  .theme-button__icon_light {
+    display: block;
+  }
+  .theme-button__icon_dark {
+    display: none;
+  }
+
+  html.dark {
+    .theme-button__icon_light {
+      display: none;
+    }
+    .theme-button__icon_dark {
+      display: block;
+    }
+  }
+</style>

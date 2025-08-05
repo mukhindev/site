@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from "astro:content";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {
+  note: CollectionEntry<"notes">;
+}
+
+const { class: className, note, ...attrs } = Astro.props;
+---
+
+<div class:list={["note-card", className]} {...attrs}>
+  <h2>{note.data.title}</h2>
+</div>
+
+<style>
+  .note-card {
+    border: 1px solid cadetblue;
+    border-radius: 8px;
+    padding: 16px;
+  }
+</style>

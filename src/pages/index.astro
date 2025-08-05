@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "../layouts/PageLayout.astro";
+import SvgUse from "../features/svg/components/SvgUse.astro";
+import SvgSymbols from "../features/svg/components/SvgSymbols.astro";
+import LastNotes from "../features/note/components/LastNotes.astro";
+import NoteTags from "../features/note/components/NoteTags.astro";
+
+const ICON = {
+  FLUTTER_DASH: "flutter_dash",
+} as const;
+
+const icons = Object.values(ICON);
+
+const notes = await getCollection("notes");
+---
+
+<PageLayout title="Главная">
+  Hello, world!
+  <SvgSymbols registered={icons} />
+  <SvgUse use={ICON.FLUTTER_DASH} width={48} height={48} />
+  <LastNotes />
+  <h1>Мои заметки</h1>
+  <ul>
+    {
+      notes.map((note) => (
+        <li>
+          <a href={`/notes/${note.id}`}>{note.data.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+  <h1>Теги</h1>
+  <NoteTags />
+</PageLayout>

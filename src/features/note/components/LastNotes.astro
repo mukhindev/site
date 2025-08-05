@@ -1,0 +1,38 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { getCollection } from "astro:content";
+import NoteCard from "./NoteCard.astro";
+
+const notes = await getCollection("notes");
+
+const sortedNotes = notes.sort((a, b) => {
+  return b.data.date.getTime() - a.data.date.getTime();
+});
+
+const lastNotes = sortedNotes.slice(0, 3);
+
+interface Props extends HTMLAttributes<"ul"> {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<ul class:list={["last-notes", className]} {...attrs}>
+  {lastNotes.map((note) => <NoteCard class="last-notes__card" note={note} />)}
+</ul>
+
+<style>
+  .last-notes {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .last-notes__card {
+    flex: 1 0 270px;
+    width: 100%;
+  }
+</style>

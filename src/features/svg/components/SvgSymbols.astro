@@ -1,0 +1,54 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { string } from "astro/zod";
+
+interface Props extends HTMLAttributes<"svg"> {
+  // Список svg-файлов, которые нужно зарегистрировать на странице как <symbol>
+  registered: string[];
+}
+
+const { registered = [], class: className, ...attrs } = Astro.props;
+
+// Получаем все svg-файлы из папки ../assets/svg/
+const svgModules = import.meta.glob<string>("../assets/svg/*.svg", {
+  // Как сырой код (текст)
+  query: "?raw",
+  import: "default",
+});
+
+// Создаём html-коды <symbols> элементов
+const symbolContents = new Set<string>();
+
+for await (const [path, svgModule] of Object.entries(svgModules)) {
+  // Как идентификатор, используем имя файла без его расширения (забираем из пути)
+  const [, id] = path.match(/([^/\\]+)\.svg$/) ?? [];
+
+  // Используем только нужные svg
+  if (!registered.includes(id)) {
+    continue;
+  }
+
+  const svg = await svgModule();
+  // Забираем viewBox c текущей обёртки
+  const [, viewBox] = svg.match(/viewBox="([^"]+)"/) ?? [];
+
+  // Заменяем <svg> на <symbol>
+  const symbol = svg
+    .replace(/^<svg[^>]*>/, `<symbol id="${id}" viewBox="${viewBox}">`)
+    .replace("</svg>", `</symbol>`);
+
+  symbolContents.add(symbol);
+}
+---
+
+<svg
+  class:list={["svg-symbols", className]}
+  set:html={symbolContents}
+  {...attrs}
+/>
+
+<style>
+  .svg-symbols {
+    display: none;
+  }
+</style>

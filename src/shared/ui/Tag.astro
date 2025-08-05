@@ -1,0 +1,65 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"a"> {
+  label: string;
+  count: number;
+}
+
+const { class: className, label, count, ...attrs } = Astro.props;
+---
+
+<a class:list={["tag", className]} {...attrs}>
+  {label}{" "}
+  <span class="tag__count">
+    {count.toLocaleString()}
+  </span>
+</a>
+
+<style>
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: 0.875rem;
+    padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+    border-radius: 999px;
+    background: #f3f4f6;
+    color: #111827;
+    text-decoration: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #e5e7eb;
+      color: #000;
+    }
+  }
+
+  .tag__count {
+    background: #d1d5db;
+    color: #374151;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    min-width: 26px;
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    border-radius: 999px;
+  }
+
+  html.dark {
+    .tag {
+      background: #2d3657;
+      color: #43d9ed;
+      &:hover {
+        background: #112a65;
+        color: #cc8686;
+      }
+    }
+
+    .tag__count {
+      background: #161651;
+      color: #ffffff;
+    }
+  }
+</style>
