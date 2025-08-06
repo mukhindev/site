@@ -5,17 +5,17 @@ import PageLayout from "../../layouts/PageLayout.astro";
 export async function getStaticPaths() {
   const notes = await getCollection("notes");
 
-  return notes.map((post) => ({
-    params: { id: post.id },
-    props: { post },
+  return notes.map((note) => ({
+    params: { slug: note.id },
+    props: { note: note },
   }));
 }
 
-const { post } = Astro.props;
+const { note } = Astro.props;
 
-const { Content } = await render(post);
+const { Content } = await render(note);
 ---
 
-<PageLayout title={post.data.title}>
+<PageLayout title={note.data.title}>
   <Content />
 </PageLayout>

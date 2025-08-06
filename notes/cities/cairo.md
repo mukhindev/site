@@ -6,6 +6,7 @@ tags:
     - history
     - culture
     - travel
+    - жрачка
 ---
 # Cairo
 

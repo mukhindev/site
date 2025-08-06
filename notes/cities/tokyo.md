@@ -3,7 +3,7 @@ date: 2025-04-09 17:00 +2
 title: Tokyo
 description: Краткая заметка о городе Tokyo.
 tags:
-    - food
+    - еда
     - culture
     - travel
 ---

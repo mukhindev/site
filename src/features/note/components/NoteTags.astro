@@ -1,27 +1,11 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { getCollection } from "astro:content";
 import type { HTMLAttributes } from "astro/types";
 import Tag from "../../../shared/ui/Tag.astro";
+import { groupByTagNotes } from "../utils/groupByTagNotes";
 
 const notes = await getCollection("notes");
-
-const notesByTag = new Map<string, Set<CollectionEntry<"notes">>>();
-
-// Раскладываем статьи по тегам
-for (const note of notes) {
-  for (const tag of note.data.tags) {
-    if (!notesByTag.has(tag)) {
-      notesByTag.set(tag, new Set());
-    }
-
-    notesByTag.get(tag)!.add(note);
-  }
-}
-
-// Отсортировать по убыванию упоминания тега
-const sortedNotesByTagList = Array.from(notesByTag.entries()).sort(
-  ([, a], [, b]) => b.size - a.size,
-);
+const groupedByTagNotes = groupByTagNotes(notes);
 
 interface Props extends HTMLAttributes<"ul"> {}
 
@@ -30,9 +14,9 @@ const { class: className, ...attrs } = Astro.props;
 
 <ul class:list={["note-tags", className]} {...attrs}>
   {
-    sortedNotesByTagList.map(([tag, notes]) => (
+    groupedByTagNotes.map(({ tag, notes }) => (
       <li class="note-tags__item">
-        <Tag label={tag} count={notes.size} href="/tags/astro" />
+        <Tag label={tag.name} count={notes.length} href={`/tags/${tag.slug}`} />
       </li>
     ))
   }

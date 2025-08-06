@@ -10,7 +10,8 @@
     "deploy": "astro build && npx gh-pages -d dist"
   },
   "dependencies": {
-    "astro": "^5.12.8"
+    "astro": "^5.12.8",
+    "slugify": "^1.6.6"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0",
