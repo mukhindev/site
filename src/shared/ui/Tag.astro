@@ -3,17 +3,15 @@ import type { HTMLAttributes } from "astro/types";
 
 interface Props extends HTMLAttributes<"a"> {
   label: string;
-  count: number;
+  count?: number;
 }
 
 const { class: className, label, count, ...attrs } = Astro.props;
 ---
 
-<a class:list={["tag", className]} {...attrs}>
-  {label}{" "}
-  <span class="tag__count">
-    {count.toLocaleString()}
-  </span>
+<a class:list={["tag", { "tag_with-count": count }, className]} {...attrs}>
+  {label}
+  {!!count && <span class="tag__count">{count.toLocaleString()}</span>}
 </a>
 
 <style>
@@ -22,22 +20,27 @@ const { class: className, label, count, ...attrs } = Astro.props;
     align-items: center;
     gap: 0.5em;
     font-size: 0.875rem;
-    padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+    padding: 0.25rem 0.5rem;
     border-radius: 999px;
-    background: #f3f4f6;
-    color: #111827;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--on-surface);
     text-decoration: none;
     transition: all 0.2s ease;
 
+    &.tag_with-count {
+      padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+    }
+
     &:hover {
-      background: #e5e7eb;
+      background-color: #e5e7eb;
       color: #000;
     }
   }
 
   .tag__count {
-    background: #d1d5db;
-    color: #374151;
+    background: var(--accent);
+    color: var(--on-accent);
     font-size: 0.75rem;
     padding: 0.25rem 0.5rem;
     min-width: 26px;
@@ -49,8 +52,9 @@ const { class: className, label, count, ...attrs } = Astro.props;
 
   html.dark {
     .tag {
-      background: #2d3657;
-      color: #43d9ed;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--on-surface);
       &:hover {
         background: #112a65;
         color: #cc8686;
@@ -58,8 +62,8 @@ const { class: className, label, count, ...attrs } = Astro.props;
     }
 
     .tag__count {
-      background: #161651;
-      color: #ffffff;
+      background: var(--accent);
+      color: var(--on-accent);
     }
   }
 </style>

@@ -1,0 +1,66 @@
+---
+import type { CollectionEntry } from "astro:content";
+import type { HTMLAttributes } from "astro/types";
+import Tag from "../../../shared/ui/Tag.astro";
+import { findOrCreateTagByName, findTagByName } from "../../../tags";
+import Link from "../../../shared/ui/Link.astro";
+
+interface Props extends HTMLAttributes<"div"> {
+  note: CollectionEntry<"notes">;
+}
+
+const { class: className, note, ...attrs } = Astro.props;
+
+const [, annotation] = note.rendered?.html.match(/<p>(.*?)<\/p>/s) ?? [];
+const tags = note.data.tags.map((tag) => findOrCreateTagByName(tag)!);
+---
+
+<div class:list={["note-preview", className]} {...attrs}>
+  <div class="note-preview__meta">
+    <span class="note-preview__date">
+      {note.data.date.toLocaleDateString("ru-RU")}
+    </span>
+  </div>
+  <div class="note-preview__content">
+    <Link class="note-preview__link" href={`/notes/${note.id}`}>
+      <h3 class="note-preview__title">{note.data.title}</h3>
+    </Link>
+    {tags.map((tag) => <Tag label={tag?.name} href={`/tags/${tag?.slug}`} />)}
+    <p set:html={note.data.description || annotation} />
+  </div>
+</div>
+
+<style>
+  .note-preview {
+    //background-color: var(--surface);
+    border-bottom: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    //border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .note-preview__meta {
+    flex-shrink: 0;
+    width: 128px;
+  }
+
+  .note-preview__link {
+    display: block;
+    text-wrap: balance;
+    place-self: start;
+  }
+
+  .note-preview__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .note-preview__content {
+    flex-grow: 1;
+  }
+</style>

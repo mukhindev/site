@@ -1,5 +1,8 @@
 ---
+import Container from "../../shared/ui/Container.astro";
 const copyrightYear = new Date().getFullYear();
 ---
 
-<footer>@mukhindev {copyrightYear}</footer>
+<footer class="footer">
+  <Container>@mukhindev {copyrightYear}</Container>
+</footer>

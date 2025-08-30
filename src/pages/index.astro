@@ -1,35 +1,36 @@
 ---
-import { getCollection } from "astro:content";
 import PageLayout from "../layouts/PageLayout.astro";
-import SvgUse from "../features/svg/components/SvgUse.astro";
-import SvgSymbols from "../features/svg/components/SvgSymbols.astro";
 import LastNotes from "../features/note/components/LastNotes.astro";
 import NoteTags from "../features/note/components/NoteTags.astro";
-
-const ICON = {
-  FLUTTER_DASH: "flutter_dash",
-} as const;
-
-const icons = Object.values(ICON);
-
-const notes = await getCollection("notes");
+import NoteList from "../features/note/components/NoteList.astro";
 ---
 
-<PageLayout title="Главная">
-  Hello, world!
-  <SvgSymbols registered={icons} />
-  <SvgUse use={ICON.FLUTTER_DASH} width={48} height={48} />
-  <LastNotes />
-  <h1>Мои заметки</h1>
-  <ul>
-    {
-      notes.map((note) => (
-        <li>
-          <a href={`/notes/${note.id}`}>{note.data.title}</a>
-        </li>
-      ))
-    }
-  </ul>
-  <h1>Теги</h1>
-  <NoteTags />
+<PageLayout class="main-page" title="Главная">
+  <h1 class="main-page__title main-page__title_sr-only">Домашняя страница</h1>
+  <aside>
+    <h2>Новые заметки</h2>
+    <LastNotes />
+  </aside>
+  <aside>
+    <h2>Мои заметки</h2>
+    <NoteList />
+  </aside>
+  <aside>
+    <h2>Теги</h2>
+    <NoteTags />
+  </aside>
 </PageLayout>
+
+<style>
+  .main-page__title_sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

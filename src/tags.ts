@@ -1,3 +1,5 @@
+import { toSlug } from "./shared/text/toSlug.ts";
+
 export class Tag {
   slug: string;
   names: string[];
@@ -16,17 +18,10 @@ export class Tag {
       .map((name) => name.toLowerCase())
       .includes(name.toLowerCase());
   }
-
-  toJSON() {
-    return {
-      slug: this.slug,
-      names: this.names,
-    };
-  }
 }
 
 const tags = [
-  new Tag({ slug: "food", names: ["еда", "жрачка"] }),
+  new Tag({ slug: "food", names: ["еда", "жрачка", "food"] }),
   new Tag({ slug: "ai", names: ["ai", "искусственный интеллект", "ии"] }),
 ];
 
@@ -34,8 +29,6 @@ export const findTagByName = (name: string) => {
   return tags.find((tag) => tag.hasName(name));
 };
 
-export const findTagBySlug = (slug: string) => {
-  return tags.find((tag) => tag.slug === slug);
+export const findOrCreateTagByName = (name: string) => {
+  return findTagByName(name) ?? new Tag({ slug: toSlug(name), names: [name] });
 };
-
-console.log(findTagByName("ии"));

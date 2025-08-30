@@ -1,12 +1,17 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-interface Props extends HTMLAttributes<"button"> {}
+interface Props extends HTMLAttributes<"button"> {
+  color?: "default" | "primary";
+}
 
-const { class: className, ...attrs } = Astro.props;
+const { class: className, color = "default", ...attrs } = Astro.props;
 ---
 
-<button class:list={["button", className]} {...attrs}>
+<button
+  class:list={["button", { [`button_color_${color}`]: color }, className]}
+  {...attrs}
+>
   <slot />
 </button>
 
@@ -17,22 +22,25 @@ const { class: className, ...attrs } = Astro.props;
     padding: 0.5rem 1rem;
     font: inherit;
     font-weight: 500;
-    background-color: #f9f9f9;
     cursor: pointer;
     transition: border-color 0.25s;
 
+    &.button_color_default {
+      background-color: var(--surface);
+      color: var(--on-surface);
+    }
+
+    &.button_color_primary {
+      background-color: var(--accent);
+      color: var(--on-accent);
+    }
+
     &:hover {
-      border-color: #646cff;
+      border-color: var(--accent);
     }
     &:focus,
     &:focus-visible {
       outline: 4px auto -webkit-focus-ring-color;
-    }
-  }
-
-  html.dark {
-    .button {
-      background-color: #1a1a1a;
     }
   }
 </style>

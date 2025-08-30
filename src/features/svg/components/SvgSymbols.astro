@@ -10,7 +10,7 @@ interface Props extends HTMLAttributes<"svg"> {
 const { registered = [], class: className, ...attrs } = Astro.props;
 
 // Получаем все svg-файлы из папки ../assets/svg/
-const svgModules = import.meta.glob<string>("../assets/svg/*.svg", {
+const svgModules = import.meta.glob<string>("../../../assets/svg/*.svg", {
   // Как сырой код (текст)
   query: "?raw",
   import: "default",
