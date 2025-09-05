@@ -3,20 +3,20 @@ import { type CollectionEntry, render } from "astro:content";
 import type { HTMLAttributes } from "astro/types";
 
 interface Props extends HTMLAttributes<"article"> {
-  note: CollectionEntry<"notes">;
+  post: CollectionEntry<"posts">;
 }
 
-const { class: className, note, ...attrs } = Astro.props;
+const { class: className, post, ...attrs } = Astro.props;
 
-const { Content } = await render(note);
+const { Content } = await render(post);
 ---
 
-<article class:list={["note-content", className]} {...attrs}>
+<article class:list={["post-content", className]} {...attrs}>
   <Content />
 </article>
 
 <style>
-  .note-content {
+  .post-content {
     /* Элемент внутри генерируется из .md-файлов через rehype */
 
     /*
@@ -63,7 +63,7 @@ const { Content } = await render(note);
   }
 
   html.dark {
-    .note-content {
+    .post-content {
       .astro-code.css-variables {
         --astro-code-background: #1e1e1e;
         --astro-code-foreground: #d4d4d4;

@@ -1,17 +1,17 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
-const notes = defineCollection({
+const posts = defineCollection({
   loader: glob({
-    // Заметки должны в папке notes (кроме черновиков, оканчиваются на .draft.md)
-    pattern: ["**/notes/**/*.md", "!**/*.draft.md"],
-    base: "external",
+    // Заметки должны быть в папке posts (кроме черновиков, оканчиваются на .draft.md)
+    pattern: ["**/posts/**/*.md", "!**/*.draft.md"],
+    base: "content",
     generateId: ({ entry, data }) => {
-      // Забираем для id страницы название файла
-      const match = entry.match(/\/notes\/(.+?)(?:\.[^/.]+)?$/);
-      const path = match![1];
+      // Забираем для пути страницы часть начинающеюся относительно папки posts/
+      const match = entry.match(/\/posts\/(.+?)(?:\.[^/.]+)?$/);
+      const path = match ? match[1] : null;
       // В path можно передать (через метаданные md файла) стабильный путь независимый от реального положения
-      return (data.path as string | undefined) ?? path;
+      return (data.path as string | undefined) ?? path ?? entry;
     },
   }),
   schema: z.object({
@@ -23,4 +23,4 @@ const notes = defineCollection({
   }),
 });
 
-export const collections = { notes };
+export const collections = { posts };

@@ -2,28 +2,28 @@
 import { getCollection } from "astro:content";
 import type { HTMLAttributes } from "astro/types";
 import Tag from "../../../shared/ui/Tag.astro";
-import { groupByTagNotes } from "../utils/groupByTagNotes";
-import NotePreview from "./NotePreview.astro";
+import { groupByTagPosts } from "../utils/groupByTagPosts";
+import PostPreview from "./PostPreview.astro";
 
-const notes = await getCollection("notes");
+const posts = await getCollection("posts");
 
 interface Props extends HTMLAttributes<"ul"> {}
 
 const { class: className, ...attrs } = Astro.props;
 ---
 
-<ul class:list={["note-list", className]} {...attrs}>
+<ul class:list={["post-list", className]} {...attrs}>
   {
-    notes.map((note) => (
-      <li class="note-list__item">
-        <NotePreview note={note} />
+    posts.map((post) => (
+      <li class="post-list__item">
+        <PostPreview post={post} />
       </li>
     ))
   }
 </ul>
 
 <style>
-  .note-list {
+  .post-list {
     display: flex;
     flex-direction: column;
     list-style: none;

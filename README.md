@@ -1,46 +1,36 @@
-# Astro Starter Kit: Basics
+# mukhin.dev
 
-```sh
-npm create astro@latest -- --template basics
+https://mukhin.dev
+
+Сайт собирается на [Astro](https://astro.build/).
+
+## Структура
+
+```
+/content                           — Контентрая папка
+  └── /module                      — Модуль/категория
+        └── /posts                 — Папка с постами
+              └── /topic           — Тема  
+                    ├── /_code     — Папка с примерами кода
+                    └── /post.md   — Пост
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-## 🚀 Project Structure
+`content` — Папка для размещения контента сайта.
 
-Inside of your Astro project, you'll see the following folders and files:
+`module` — Название папки может быть любым. Служит 2-ум целям:
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+1. Отделить посты разной тематики друг от друга.
+2. Внедрение внешнего контента через git подмодуль.
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+`posts` — Папка, относительно которой идёт поиск `.md` файлов для генерации страниц.
 
-## 🧞 Commands
+## Внешний контент
 
-All commands are run from the root of the project, from a terminal:
+Это контент, хранимый в других репозиториях.
+Сделано для удобства отладки кода в файлах,
+используя нужное окружение для соответствующих языков/платформ.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| Папка                  | Внешний репозиторий                               |
+|------------------------|---------------------------------------------------|
+| `content/dart_flutter` | https://github.com/mukhindev/content_dart_flutter |

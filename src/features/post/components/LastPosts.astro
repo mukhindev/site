@@ -1,27 +1,27 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import { getCollection } from "astro:content";
-import NoteCard from "./NoteCard.astro";
+import PostCard from "./PostCard.astro";
 
-const notes = await getCollection("notes");
+const posts = await getCollection("posts");
 
-const sortedNotes = notes.sort((a, b) => {
+const sortedPosts = posts.sort((a, b) => {
   return b.data.date.getTime() - a.data.date.getTime();
 });
 
-const lastNotes = sortedNotes.slice(0, 3);
+const lastPosts = sortedPosts.slice(0, 3);
 
 interface Props extends HTMLAttributes<"ul"> {}
 
 const { class: className, ...attrs } = Astro.props;
 ---
 
-<ul class:list={["last-notes", className]} {...attrs}>
-  {lastNotes.map((note) => <NoteCard class="last-notes__card" note={note} />)}
+<ul class:list={["last-posts", className]} {...attrs}>
+  {lastPosts.map((post) => <PostCard class="last-posts__card" post={post} />)}
 </ul>
 
 <style>
-  .last-notes {
+  .last-posts {
     display: flex;
     flex-direction: row;
     flex-flow: wrap;
@@ -31,7 +31,7 @@ const { class: className, ...attrs } = Astro.props;
     padding: 0;
   }
 
-  .last-notes__card {
+  .last-posts__card {
     flex: 1 0 270px;
     width: 100%;
   }

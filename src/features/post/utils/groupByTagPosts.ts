@@ -2,30 +2,30 @@ import type { CollectionEntry } from "astro:content";
 import { findOrCreateTagByName, Tag } from "../../../tags.ts";
 
 /** Сгруппировать статьи по тегам */
-export const groupByTagNotes = (notes: CollectionEntry<"notes">[]) => {
-  const noteTagMap = new Map<
+export const groupByTagPosts = (posts: CollectionEntry<"posts">[]) => {
+  const postTagMap = new Map<
     string,
     {
       tag: Tag;
-      notes: CollectionEntry<"notes">[];
+      posts: CollectionEntry<"posts">[];
     }
   >();
 
   // Раскладываем статьи по именам тегов
-  for (const note of notes) {
-    for (const name of note.data.tags) {
+  for (const post of posts) {
+    for (const name of post.data.tags) {
       const tag = findOrCreateTagByName(name);
 
-      if (!noteTagMap.has(tag.slug)) {
-        noteTagMap.set(tag.slug, { tag, notes: [] });
+      if (!postTagMap.has(tag.slug)) {
+        postTagMap.set(tag.slug, { tag, posts: [] });
       }
 
-      noteTagMap.get(tag.slug)!.notes.push(note);
+      postTagMap.get(tag.slug)!.posts.push(post);
     }
   }
 
   // Сортируем по убыванию упоминания тега
-  return Array.from(noteTagMap.values()).sort(
-    (a, b) => b.notes.length - a.notes.length,
+  return Array.from(postTagMap.values()).sort(
+    (a, b) => b.posts.length - a.posts.length,
   );
 };

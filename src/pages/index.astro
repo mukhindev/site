@@ -1,23 +1,23 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
-import LastNotes from "../features/note/components/LastNotes.astro";
-import NoteTags from "../features/note/components/NoteTags.astro";
-import NoteList from "../features/note/components/NoteList.astro";
+import LastPosts from "../features/post/components/LastPosts.astro";
+import PostTags from "../features/post/components/PostTags.astro";
+import PostList from "../features/post/components/PostList.astro";
 ---
 
 <PageLayout class="main-page" title="Главная">
   <h1 class="main-page__title main-page__title_sr-only">Домашняя страница</h1>
   <aside>
     <h2>Новые заметки</h2>
-    <LastNotes />
+    <LastPosts />
   </aside>
   <aside>
     <h2>Мои заметки</h2>
-    <NoteList />
+    <PostList />
   </aside>
   <aside>
     <h2>Теги</h2>
-    <NoteTags />
+    <PostTags />
   </aside>
 </PageLayout>
 

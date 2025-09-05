@@ -2,28 +2,28 @@
 import { getCollection } from "astro:content";
 import type { HTMLAttributes } from "astro/types";
 import Tag from "../../../shared/ui/Tag.astro";
-import { groupByTagNotes } from "../utils/groupByTagNotes";
+import { groupByTagPosts } from "../utils/groupByTagPosts";
 
-const notes = await getCollection("notes");
-const groupedByTagNotes = groupByTagNotes(notes);
+const posts = await getCollection("posts");
+const groupedByTagPosts = groupByTagPosts(posts);
 
 interface Props extends HTMLAttributes<"ul"> {}
 
 const { class: className, ...attrs } = Astro.props;
 ---
 
-<ul class:list={["note-tags", className]} {...attrs}>
+<ul class:list={["post-tags", className]} {...attrs}>
   {
-    groupedByTagNotes.map(({ tag, notes }) => (
-      <li class="note-tags__item">
-        <Tag label={tag.name} count={notes.length} href={`/tags/${tag.slug}`} />
+    groupedByTagPosts.map(({ tag, posts }) => (
+      <li class="post-tags__item">
+        <Tag label={tag.name} count={posts.length} href={`/tags/${tag.slug}`} />
       </li>
     ))
   }
 </ul>
 
 <style>
-  .note-tags {
+  .post-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;

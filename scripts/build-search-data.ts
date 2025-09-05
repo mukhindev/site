@@ -1,13 +1,13 @@
 import { getCollection } from "astro:content";
 import fs from "fs";
 
-const notes = await getCollection("notes");
+const posts = await getCollection("posts");
 
-const data = notes.map((note) => ({
-  title: note.data.title,
-  description: note.data.description,
-  tags: note.data.tags,
-  slug: `/notes/${note.id}/`,
+const data = posts.map((post) => ({
+  title: post.data.title,
+  description: post.data.description,
+  tags: post.data.tags,
+  slug: `/posts/${post.id}/`,
 }));
 
 fs.writeFileSync("public/search-data.json", JSON.stringify(data));
