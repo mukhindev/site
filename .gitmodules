@@ -1,0 +1,3 @@
+[submodule "external/dart_flutter"]
+	path = external/dart_flutter
+	url = git@github.com:mukhindev/notes_dart_flutter.git

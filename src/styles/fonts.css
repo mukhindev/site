@@ -3,7 +3,8 @@
 /* Normal (variable) — охватывает веса 100–800 */
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("/fonts/JetBrainsMono[wght].ttf") format("truetype-variations");
+  src: url("/public/fonts/JetBrainsMono[wght].ttf")
+    format("truetype-variations");
   font-weight: 100 800;
   font-style: normal;
   font-display: swap;
@@ -12,7 +13,7 @@
 /* Italic (variable) — веса 100–800 */
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("/fonts/JetBrainsMono-Italic[wght].ttf")
+  src: url("/public/fonts/JetBrainsMono-Italic[wght].ttf")
     format("truetype-variations");
   font-weight: 100 800;
   font-style: italic;
@@ -25,8 +26,8 @@
 @font-face {
   font-family: "JetBrains Mono";
   src:
-    url("/fonts/JetBrainsMono-Regular.woff2") format("woff2"),
-    url("/fonts/JetBrainsMono-Regular.ttf") format("truetype");
+    url("/public/fonts/JetBrainsMono-Regular.woff2") format("woff2"),
+    url("/public/fonts/JetBrainsMono-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -36,8 +37,8 @@
 @font-face {
   font-family: "JetBrains Mono";
   src:
-    url("/fonts/JetBrainsMono-Italic.woff2") format("woff2"),
-    url("/fonts/JetBrainsMono-Italic.ttf") format("truetype");
+    url("/public/fonts/JetBrainsMono-Italic.woff2") format("woff2"),
+    url("/public/fonts/JetBrainsMono-Italic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -47,8 +48,8 @@
 @font-face {
   font-family: "JetBrains Mono";
   src:
-    url("/fonts/JetBrainsMono-Bold.woff2") format("woff2"),
-    url("/fonts/JetBrainsMono-Bold.ttf") format("truetype");
+    url("/public/fonts/JetBrainsMono-Bold.woff2") format("woff2"),
+    url("/public/fonts/JetBrainsMono-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -58,8 +59,8 @@
 @font-face {
   font-family: "JetBrains Mono";
   src:
-    url("/fonts/JetBrainsMono-BoldItalic.woff2") format("woff2"),
-    url("/fonts/JetBrainsMono-BoldItalic.ttf") format("truetype");
+    url("/public/fonts/JetBrainsMono-BoldItalic.woff2") format("woff2"),
+    url("/public/fonts/JetBrainsMono-BoldItalic.ttf") format("truetype");
   font-weight: 700;
   font-style: italic;
   font-display: swap;

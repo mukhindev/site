@@ -26,7 +26,10 @@ const tags = note.data.tags.map((tag) => findOrCreateTagByName(tag)!);
       <h3 class="note-preview__title">{note.data.title}</h3>
     </Link>
     {tags.map((tag) => <Tag label={tag?.name} href={`/tags/${tag?.slug}`} />)}
-    <p set:html={note.data.description || annotation} />
+    <p
+      class="note-preview__description"
+      set:html={note.data.description || annotation}
+    />
   </div>
 </div>
 
