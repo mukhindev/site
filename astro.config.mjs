@@ -1,9 +1,11 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import rehypeMermaid from "rehype-mermaid";
+import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://mukhin.dev",
   output: "static",
   markdown: {
     syntaxHighlight: {
@@ -18,4 +20,9 @@ export default defineConfig({
     // Отрисовка диаграмм кодовым блоком mermaid
     rehypePlugins: [rehypeMermaid],
   },
+  integrations: [
+    sitemap({
+      filter: (page) => page !== "/search.json",
+    }),
+  ],
 });

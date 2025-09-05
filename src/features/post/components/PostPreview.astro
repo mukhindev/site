@@ -4,6 +4,7 @@ import type { HTMLAttributes } from "astro/types";
 import Tag from "../../../shared/ui/Tag.astro";
 import { findOrCreateTagByName, findTagByName } from "../../../tags";
 import Link from "../../../shared/ui/Link.astro";
+import { POSTS_BASE_PATH } from "../../../app.config";
 
 interface Props extends HTMLAttributes<"div"> {
   post: CollectionEntry<"posts">;
@@ -22,7 +23,7 @@ const tags = post.data.tags.map((tag) => findOrCreateTagByName(tag)!);
     </span>
   </div>
   <div class="post-preview__content">
-    <Link class="post-preview__link" href={`/p/${post.id}`}>
+    <Link class="post-preview__link" href={`/${POSTS_BASE_PATH}/${post.id}`}>
       <h3 class="post-preview__title">{post.data.title}</h3>
     </Link>
     {tags.map((tag) => <Tag label={tag?.name} href={`/tags/${tag?.slug}`} />)}
@@ -35,10 +36,10 @@ const tags = post.data.tags.map((tag) => findOrCreateTagByName(tag)!);
 
 <style>
   .post-preview {
-    //background-color: var(--surface);
+    /*background-color: var(--surface);*/
     border-bottom: 1px solid var(--border);
     border-top: 1px solid var(--border);
-    //border-radius: 8px;
+    /*border-radius: 8px;*/
     padding: 16px;
     display: flex;
     flex-direction: row;

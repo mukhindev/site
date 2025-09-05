@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import PageLayout from "../../layouts/PageLayout.astro";
 import { groupByTagPosts } from "../../features/post/utils/groupByTagPosts";
+import { POSTS_BASE_PATH } from "../../app.config";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -22,7 +23,7 @@ const { tagName, posts } = Astro.props;
     {
       posts.map((post) => (
         <li>
-          <a href={`/posts/${post.id}`}>{post.data.title}</a>
+          <a href={`/${POSTS_BASE_PATH}/${post.id}`}>{post.data.title}</a>
         </li>
       ))
     }
