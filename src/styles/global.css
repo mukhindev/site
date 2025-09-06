@@ -20,12 +20,13 @@ html {
   --on-surface: #3b3b3b;
   --accent: #1327f5;
   --on-accent: #f8f8f8;
+  --shadow-edge: rgba(0, 0, 0, 0.05);
   --shadow-high:
-    0 16px 48px -24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    0 16px 48px -24px rgba(0, 0, 0, 0.5), inset 0 0 0 1px var(--shadow-edge);
   --shadow-mid:
-    0 8px 24px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    0 8px 24px -12px rgba(0, 0, 0, 0.5), inset 0 0 0 1px var(--shadow-edge);
   --shadow-low:
-    0 4px 8px -6px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    0 4px 8px -6px rgba(0, 0, 0, 0.5), inset 0 0 0 1px var(--shadow-edge);
 
   color-scheme: light;
   scrollbar-gutter: stable both-edges;
@@ -37,6 +38,7 @@ html {
     --on-surface: #d4d4d4;
     --accent: #c0947c;
     --on-accent: #1f1f1f;
+    --shadow-edge: rgba(255, 255, 255, 0.05);
 
     color-scheme: dark;
   }
