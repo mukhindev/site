@@ -3,6 +3,8 @@ import ThemeButton from "../../features/theme/components/ThemeButton.astro";
 import Logo from "../../assets/svg/mukhindev.svg";
 import Container from "../../shared/ui/Container.astro";
 import type { HTMLAttributes } from "astro/types";
+import Search from "../../features/search/components/Search.astro";
+import Space from "../../shared/ui/Space.astro";
 
 interface Props extends HTMLAttributes<"header"> {}
 
@@ -14,6 +16,8 @@ const { class: className, ...attrs } = Astro.props;
     <a class="header__logo-link" href="/" aria-label="Домой">
       <Logo class="header__logo" aria-hidden="true" />
     </a>
+    <Space />
+    <Search class="header__search" />
     <ThemeButton />
   </Container>
 </header>
@@ -39,6 +43,7 @@ const { class: className, ...attrs } = Astro.props;
   .header__container {
     padding-top: 16px;
     padding-bottom: 16px;
+    gap: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -69,6 +74,10 @@ const { class: className, ...attrs } = Astro.props;
     height: 20px;
     width: 128px;
     display: block;
+  }
+
+  .header__search {
+    align-content: end;
   }
 
   html.dark {

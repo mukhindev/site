@@ -1,0 +1,123 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Input from "../../../shared/ui/Input.astro";
+import Link from "../../../shared/ui/Link.astro";
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<div
+  class:list={["search", className]}
+  role="search"
+  aria-label="Поиск по сайту"
+  {...attrs}
+>
+  <form class="search__form" role="search">
+    <Input
+      class="search__input"
+      aria-label="Поиск"
+      placeholder="Поиск по сайту"
+      name="search"
+      type="search"
+      autocomplete="off"
+    />
+  </form>
+  <ul class="search__results search__results_is-hidden" aria-hidden="true"></ul>
+  <template class="search__item-template">
+    <li class="search__item">
+      <Link class="search__link" />
+    </li>
+  </template>
+</div>
+
+<script>
+  type Item = { title: string; path: string };
+  let data: Item[] | null = null;
+  const form = document.querySelector<HTMLFormElement>(".search__form")!;
+  const input = document.querySelector<HTMLInputElement>(".search__input")!;
+  const results = document.querySelector<HTMLUListElement>(".search__results")!;
+  const searchItemTemplate = document.querySelector<HTMLTemplateElement>(
+    ".search__item-template",
+  )!;
+
+  async function ensureData() {
+    if (!data) {
+      const res = await fetch("/search.json");
+      data = await res.json();
+    }
+  }
+
+  function render(items: Item[]) {
+    results.innerHTML = "";
+
+    for (const item of items.slice(0, 20)) {
+      const li = searchItemTemplate.content.cloneNode(true) as HTMLLIElement;
+      const a = li.querySelector<HTMLAnchorElement>(".search__link")!;
+      a.href = item.path;
+      a.textContent = item.title;
+      results.appendChild(li);
+    }
+
+    if (items.length > 0) {
+      results.setAttribute("aria-hidden", "true");
+      results.classList.remove("search__results_is-hidden");
+    } else {
+      results.removeAttribute("aria-hidden");
+      results.classList.add("search__results_is-hidden");
+    }
+  }
+
+  form.addEventListener("submit", async (evt) => {
+    console.log(evt.target);
+    evt.preventDefault();
+  });
+
+  input.addEventListener("input", async () => {
+    const query = input.value.trim().toLowerCase();
+    if (!query) return render([]);
+    await ensureData();
+    render(data!.filter((d) => d.title.toLowerCase().includes(query)));
+  });
+</script>
+
+<style>
+  .search {
+    position: relative;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 256px;
+    transition: max-width 0.2s;
+
+    &:focus-within,
+    &:not(:has(.search__results_is-hidden)) {
+      max-width: 480px;
+    }
+  }
+
+  .search__results {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    max-height: calc(100vh - 128px);
+    background-color: var(--surface);
+    box-shadow: var(--shadow-high);
+    transition: opacity 0.2s;
+    opacity: 1;
+    border-radius: 8px;
+    margin: 0;
+    padding: 16px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: scroll;
+
+    &.search__results_is-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+</style>

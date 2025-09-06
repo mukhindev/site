@@ -5,7 +5,9 @@ import Tag from "../../../shared/ui/Tag.astro";
 import { groupByTagPosts } from "../utils/groupByTagPosts";
 import PostPreview from "./PostPreview.astro";
 
-const posts = await getCollection("posts");
+const posts = (await getCollection("posts")).sort((a, b) => {
+  return b.data.date.getTime() - a.data.date.getTime();
+});
 
 interface Props extends HTMLAttributes<"ul"> {}
 

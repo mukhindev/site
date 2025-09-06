@@ -15,10 +15,10 @@ const posts = defineCollection({
     },
   }),
   schema: z.object({
-    date: z.coerce.date(),
-    updateDate: z.coerce.date().optional(),
     title: z.string(),
+    date: z.coerce.date(),
     description: z.string().nullable().optional(),
+    pinned: z.boolean().optional(),
     tags: z.array(z.string()),
   }),
 });

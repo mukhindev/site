@@ -19,10 +19,11 @@ const { class: className, color = "default", ...attrs } = Astro.props;
   .button {
     border-radius: 8px;
     border: 1px solid transparent;
-    padding: 0.5rem 1rem;
+    padding: 11px 24px;
     font: inherit;
     font-weight: 500;
     cursor: pointer;
+    box-shadow: var(--shadow-low);
     transition: border-color 0.25s;
 
     &.button_color_default {

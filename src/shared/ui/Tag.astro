@@ -23,10 +23,10 @@ const { class: className, label, count, ...attrs } = Astro.props;
     padding: 0.25rem 0.5rem;
     border-radius: 999px;
     background: var(--surface);
-    border: 1px solid var(--border);
     color: var(--on-surface);
     text-decoration: none;
     transition: all 0.2s ease;
+    box-shadow: var(--shadow-low);
 
     &.tag_with-count {
       padding: 0.25rem 0.25rem 0.25rem 0.5rem;

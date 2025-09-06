@@ -9,19 +9,23 @@ const sortedPosts = posts.sort((a, b) => {
   return b.data.date.getTime() - a.data.date.getTime();
 });
 
-const lastPosts = sortedPosts.slice(0, 3);
+const pinnedPosts = sortedPosts.slice(0, 3);
 
 interface Props extends HTMLAttributes<"ul"> {}
 
 const { class: className, ...attrs } = Astro.props;
 ---
 
-<ul class:list={["last-posts", className]} {...attrs}>
-  {lastPosts.map((post) => <PostCard class="last-posts__card" post={post} />)}
+<ul class:list={["pinned-posts", className]} {...attrs}>
+  {
+    pinnedPosts.map((post) => (
+      <PostCard class="pinned-posts__card" post={post} />
+    ))
+  }
 </ul>
 
 <style>
-  .last-posts {
+  .pinned-posts {
     display: flex;
     flex-direction: row;
     flex-flow: wrap;
@@ -31,7 +35,7 @@ const { class: className, ...attrs } = Astro.props;
     padding: 0;
   }
 
-  .last-posts__card {
+  .pinned-posts__card {
     flex: 1 0 270px;
     width: 100%;
   }
