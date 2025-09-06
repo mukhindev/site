@@ -1,16 +1,24 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import type { HTMLAttributes } from "astro/types";
+import Link from "../../../shared/ui/Link.astro";
+import { POSTS_BASE_PATH } from "../../../app.config";
 
 interface Props extends HTMLAttributes<"div"> {
   post: CollectionEntry<"posts">;
 }
 
 const { class: className, post, ...attrs } = Astro.props;
+const [, annotation] = post.rendered?.html.match(/<p>(.*?)<\/p>/s) ?? [];
+const description = post.data.description || annotation;
 ---
 
 <div class:list={["post-card", className]} {...attrs}>
-  <h3>{post.data.title}</h3>
+  <h3 class="post-preview__title">{post.data.title}</h3>
+  <p class="post-preview__description" set:html={description} />
+  <Link class="post-card__link" href={`/${POSTS_BASE_PATH}/${post.id}`}>
+    Перейти к посту
+  </Link>
 </div>
 
 <style>
@@ -19,5 +27,22 @@ const { class: className, post, ...attrs } = Astro.props;
     padding: 16px;
     background: var(--surface);
     box-shadow: var(--shadow-low);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: start;
+    align-items: start;
+  }
+
+  .post-preview__title {
+    margin: 0;
+  }
+
+  .post-preview__description {
+    margin: 0;
+  }
+
+  .post-card__link {
+    margin-top: auto;
   }
 </style>

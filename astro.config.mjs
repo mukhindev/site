@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import rehypeMermaid from "rehype-mermaid";
 import sitemap from "@astrojs/sitemap";
+import { rehypeRemoveH1 } from "./rehypePlugins/rehypeRemoveH1.js";
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,7 +19,11 @@ export default defineConfig({
       theme: "css-variables",
     },
     // Отрисовка диаграмм кодовым блоком mermaid
-    rehypePlugins: [rehypeMermaid],
+    rehypePlugins: [
+      // Исключаем заголовки 1-ого уровня (#) при обработке md. Заголовок используется из метаданных.
+      rehypeRemoveH1,
+      rehypeMermaid,
+    ],
   },
   integrations: [
     sitemap({

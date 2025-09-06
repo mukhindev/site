@@ -3,13 +3,11 @@ import type { HTMLAttributes } from "astro/types";
 import { getCollection } from "astro:content";
 import PostCard from "./PostCard.astro";
 
-const posts = await getCollection("posts", ({ data }) => !!data.pinned);
-
-const sortedPosts = posts.sort((a, b) => {
-  return b.data.date.getTime() - a.data.date.getTime();
-});
-
-const pinnedPosts = sortedPosts.slice(0, 3);
+const posts = (await getCollection("posts", ({ data }) => !!data.pinned)).sort(
+  (a, b) => {
+    return b.data.date.getTime() - a.data.date.getTime();
+  },
+);
 
 interface Props extends HTMLAttributes<"ul"> {}
 
@@ -17,11 +15,7 @@ const { class: className, ...attrs } = Astro.props;
 ---
 
 <ul class:list={["pinned-posts", className]} {...attrs}>
-  {
-    pinnedPosts.map((post) => (
-      <PostCard class="pinned-posts__card" post={post} />
-    ))
-  }
+  {posts.map((post) => <PostCard class="pinned-posts__card" post={post} />)}
 </ul>
 
 <style>

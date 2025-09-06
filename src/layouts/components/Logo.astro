@@ -1,0 +1,48 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<div class:list={["logo", className]} {...attrs}>
+  <span class="logo__tag">{"<"}</span>
+  <span class="logo__domain">{"mukhin"}</span>
+  <span class="logo__zone">{".dev"}</span>
+  <span class="logo__tag">{"/>"}</span>
+</div>
+
+<style>
+  .logo {
+    --tag: #6f1908;
+    --domain: #6f1908;
+    --zone: #c73617;
+
+    height: 20px;
+    width: 128px;
+    display: flex;
+    font-family: var(--font-code), monospace;
+    font-variant-ligatures: none;
+  }
+
+  html.dark {
+    .logo {
+      --tag: #808080;
+      --domain: #6f9bd2;
+      --zone: #b1dbfb;
+    }
+  }
+
+  .logo__tag {
+    color: var(--tag);
+  }
+
+  .logo__domain {
+    color: var(--domain);
+  }
+
+  .logo__zone {
+    color: var(--zone);
+  }
+</style>

@@ -1,33 +1,28 @@
-/* ===== Variable (основная) ===== */
-
-/* Normal (variable) — охватывает веса 100–800 */
+/* Normal (variable) */
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("/public/fonts/JetBrainsMono[wght].ttf")
-    format("truetype-variations");
+  src: url("/fonts/JetBrainsMono[wght].ttf") format("truetype-variations");
   font-weight: 100 800;
   font-style: normal;
   font-display: swap;
 }
 
-/* Italic (variable) — веса 100–800 */
+/* Italic (variable) */
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("/public/fonts/JetBrainsMono-Italic[wght].ttf")
+  src: url("/fonts/JetBrainsMono-Italic[wght].ttf")
     format("truetype-variations");
   font-weight: 100 800;
   font-style: italic;
   font-display: swap;
 }
 
-/* ===== Обычные начертания (фолбэк) ===== */
-
 /* Regular 400 */
 @font-face {
   font-family: "JetBrains Mono";
   src:
-    url("/public/fonts/JetBrainsMono-Regular.woff2") format("woff2"),
-    url("/public/fonts/JetBrainsMono-Regular.ttf") format("truetype");
+    url("/fonts/JetBrainsMono-Regular.woff2") format("woff2"),
+    url("/fonts/JetBrainsMono-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -37,8 +32,8 @@
 @font-face {
   font-family: "JetBrains Mono";
   src:
-    url("/public/fonts/JetBrainsMono-Italic.woff2") format("woff2"),
-    url("/public/fonts/JetBrainsMono-Italic.ttf") format("truetype");
+    url("/fonts/JetBrainsMono-Italic.woff2") format("woff2"),
+    url("/fonts/JetBrainsMono-Italic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -48,8 +43,8 @@
 @font-face {
   font-family: "JetBrains Mono";
   src:
-    url("/public/fonts/JetBrainsMono-Bold.woff2") format("woff2"),
-    url("/public/fonts/JetBrainsMono-Bold.ttf") format("truetype");
+    url("/fonts/JetBrainsMono-Bold.woff2") format("woff2"),
+    url("/fonts/JetBrainsMono-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -59,14 +54,13 @@
 @font-face {
   font-family: "JetBrains Mono";
   src:
-    url("/public/fonts/JetBrainsMono-BoldItalic.woff2") format("woff2"),
-    url("/public/fonts/JetBrainsMono-BoldItalic.ttf") format("truetype");
+    url("/fonts/JetBrainsMono-BoldItalic.woff2") format("woff2"),
+    url("/fonts/JetBrainsMono-BoldItalic.ttf") format("truetype");
   font-weight: 700;
   font-style: italic;
   font-display: swap;
 }
 
-/* Рекомендуется отключить синтез (чтобы браузер не “подделывал” жирность/курсив) */
 :root {
   font-synthesis-weight: none;
   font-synthesis-style: none;

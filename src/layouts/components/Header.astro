@@ -1,10 +1,10 @@
 ---
 import ThemeButton from "../../features/theme/components/ThemeButton.astro";
-import Logo from "../../assets/svg/mukhindev.svg";
 import Container from "../../shared/ui/Container.astro";
 import type { HTMLAttributes } from "astro/types";
 import Search from "../../features/search/components/Search.astro";
 import Space from "../../shared/ui/Space.astro";
+import Logo from "./Logo.astro";
 
 interface Props extends HTMLAttributes<"header"> {}
 
@@ -61,30 +61,19 @@ const { class: className, ...attrs } = Astro.props;
   .header__logo-link {
     display: block;
     transition: box-shadow 0.15s ease-in-out;
+    text-decoration: none;
 
     &:hover {
-      box-shadow: 0 2px 0 0 var(--accent);
+      box-shadow: 0 1px 0 0 var(--accent);
     }
   }
 
   .header__logo {
-    --tag: #6f1908;
-    --name: #6f1908;
-    --domain: #c73617;
     height: 20px;
     width: 128px;
-    display: block;
   }
 
   .header__search {
     align-content: end;
-  }
-
-  html.dark {
-    .header__logo {
-      --tag: #808080;
-      --name: #6f9bd2;
-      --domain: #b1dbfb;
-    }
   }
 </style>

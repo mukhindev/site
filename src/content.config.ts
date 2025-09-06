@@ -3,7 +3,7 @@ import { glob } from "astro/loaders";
 
 const posts = defineCollection({
   loader: glob({
-    // Заметки должны быть в папке posts (кроме черновиков, оканчиваются на .draft.md)
+    // Посты должны быть в папке posts (кроме черновиков, оканчиваются на .draft.md)
     pattern: ["**/posts/**/*.md", "!**/*.draft.md"],
     base: "content",
     generateId: ({ entry, data }) => {

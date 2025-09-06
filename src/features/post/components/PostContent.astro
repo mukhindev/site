@@ -1,6 +1,8 @@
 ---
 import { type CollectionEntry, render } from "astro:content";
 import type { HTMLAttributes } from "astro/types";
+import Tag from "../../../shared/ui/Tag.astro";
+import { findOrCreateTagByName } from "../../../tags";
 
 interface Props extends HTMLAttributes<"article"> {
   post: CollectionEntry<"posts">;
@@ -9,9 +11,12 @@ interface Props extends HTMLAttributes<"article"> {
 const { class: className, post, ...attrs } = Astro.props;
 
 const { Content } = await render(post);
+const tags = post.data.tags.map((tag) => findOrCreateTagByName(tag)!);
 ---
 
 <article class:list={["post-content", className]} {...attrs}>
+  <h1>{post.data.title}</h1>
+  {tags.map((tag) => <Tag label={tag?.name} href={`/tags/${tag?.slug}`} />)}
   <Content />
 </article>
 
@@ -41,22 +46,31 @@ const { Content } = await render(post);
       --astro-code-token-type: #267f99;
 
       font-family: var(--font-code), monospace;
+      font-variant-ligatures: none;
       font-size: 0.875rem;
-      background-color: var(--accent);
-      color: var(--on-accent);
-      padding: 0 0.25rem;
-      border-radius: 4px;
+      background-color: unset;
     }
 
     /* Код в тексте `text` */
     code {
       font-family: var(--font-code), monospace;
+      font-variant-ligatures: none;
+    }
+
+    p code {
+      font-family: var(--font-code), monospace;
+      font-variant-ligatures: none;
       font-size: 0.875rem;
+      background-color: var(--surface);
+      color: var(--on-surface);
+      padding: 0 0.25rem;
+      border-radius: 4px;
     }
 
     /** Стресс _text_ */
     em {
       font-family: var(--font-code), monospace;
+      font-variant-ligatures: none;
       font-size: 0.875em;
       font-style: italic;
     }

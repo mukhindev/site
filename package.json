@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "astro build && npx gh-pages -d dist"
+    "deploy": "astro build && npx gh-pages -d dist --dotfiles"
   },
   "devDependencies": {
     "@astrojs/sitemap": "^3.5.1",

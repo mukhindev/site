@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 import type { HTMLAttributes } from "astro/types";
 import Tag from "../../../shared/ui/Tag.astro";
 import { groupByTagPosts } from "../utils/groupByTagPosts";
@@ -7,7 +7,9 @@ import { groupByTagPosts } from "../utils/groupByTagPosts";
 const posts = await getCollection("posts");
 const groupedByTagPosts = groupByTagPosts(posts);
 
-interface Props extends HTMLAttributes<"ul"> {}
+interface Props extends HTMLAttributes<"ul"> {
+  tags: CollectionEntry<"posts">[];
+}
 
 const { class: className, ...attrs } = Astro.props;
 ---
