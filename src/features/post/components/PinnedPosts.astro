@@ -3,7 +3,7 @@ import type { HTMLAttributes } from "astro/types";
 import { getCollection } from "astro:content";
 import PostCard from "./PostCard.astro";
 
-const posts = await getCollection("posts");
+const posts = await getCollection("posts", ({ data }) => !!data.pinned);
 
 const sortedPosts = posts.sort((a, b) => {
   return b.data.date.getTime() - a.data.date.getTime();
